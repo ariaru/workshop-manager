@@ -4,7 +4,8 @@
             [markdown.core :refer [md-to-html-string]]
             [ring.util.http-response :refer [content-type ok]]
             [ring.util.anti-forgery :refer [anti-forgery-field]]
-            [ring.middleware.anti-forgery :refer [*anti-forgery-token*]]))
+            [ring.middleware.anti-forgery :refer [*anti-forgery-token*]]
+            [hiccup.core :refer [html]]))
 
 
 (declare ^:dynamic *app-context*)
@@ -21,6 +22,19 @@
         template
         (assoc params
           :page template
+          :csrf-token *anti-forgery-token*
+          :servlet-context *app-context*)))
+    "text/html; charset=utf-8"))
+
+(defn render-hiccup
+  "renders hiccup with the base template"
+  [hiccup & [params]]
+  (content-type
+    (ok
+      (parser/render-file
+        "base.html"
+        (assoc params
+          :content (html hiccup)
           :csrf-token *anti-forgery-token*
           :servlet-context *app-context*)))
     "text/html; charset=utf-8"))
