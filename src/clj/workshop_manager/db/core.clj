@@ -22,6 +22,10 @@
 
 (conman/bind-connection *db* "sql/queries.sql")
 
+(defn save-attendee! [])
+
+(defn get-attendees [])
+
 (defn to-date [sql-date]
   (-> sql-date (.getTime) (java.util.Date.)))
 
