@@ -4,7 +4,8 @@
     [clojure.java.jdbc :as jdbc]
     [conman.core :as conman]
     [workshop-manager.config :refer [env]]
-    [mount.core :refer [defstate]])
+    [mount.core :refer [defstate]
+    [to-jdbc-uri.core :refer [to-jdbc-uri]]])
   (:import org.postgresql.util.PGobject
            org.postgresql.jdbc4.Jdbc4Array
            clojure.lang.IPersistentMap
@@ -17,7 +18,7 @@
 
 (defstate ^:dynamic *db*
           :start (conman/connect!
-                   {:jdbc-url (env :database-url)})
+                   {:jdbc-url (to-jdbc-uri (env :database-url))})
           :stop (conman/disconnect! *db*))
 
 (conman/bind-connection *db* "sql/queries.sql")
