@@ -4,8 +4,8 @@
     [clojure.java.jdbc :as jdbc]
     [conman.core :as conman]
     [workshop-manager.config :refer [env]]
-    [mount.core :refer [defstate]
-    [to-jdbc-uri.core :refer [to-jdbc-uri]]])
+    [mount.core :refer [defstate]]
+    [to-jdbc-uri.core :refer [to-jdbc-uri]])
   (:import org.postgresql.util.PGobject
            org.postgresql.jdbc4.Jdbc4Array
            clojure.lang.IPersistentMap
